@@ -9,10 +9,10 @@ terraform {
   }
 }
 
-# Provider Block
-provider "azurerm" {
- features {}          
-}
 
+provider "azurerm" {
+  subscription_id = "96b53eca-8f9d-475b-96d6-7f9539af0757"
+  features {}
+}
 
 
