@@ -14,7 +14,7 @@ output "resource_group_name" {
 output "virtual_network_name" {
   description = "Virtal Network Name"
   value = azurerm_virtual_network.myvnet.name  
-  #sensitive = true  # Enable during Step-08
+  ##sensitive = true  # Enable during Step-08
 }
 
 
