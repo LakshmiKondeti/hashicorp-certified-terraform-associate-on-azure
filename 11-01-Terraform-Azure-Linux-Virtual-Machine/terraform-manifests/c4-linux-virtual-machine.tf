@@ -1,32 +1,3 @@
-variable "ARM_CLIENT_ID" {
-  description = "Azure Client ID for service principal"
-  type        = string
-}
-
-variable "ARM_CLIENT_SECRET" {
-  description = "Azure Client Secret for service principal"
-  type        = string
-  sensitive   = true
-}
-
-variable "ARM_TENANT_ID" {
-  description = "Azure Tenant ID"
-  type        = string
-}
-
-variable "ARM_SUBSCRIPTION_ID" {
-  description = "Azure Subscription ID"
-  type        = string
-}
-
-variable "RESOURCE_GROUP" {
-  description = "Optional Resource Group to filter NSGs"
-  type        = string
-  default     = ""  # Optional with a default value
-}
-
-
-
 # Resource: Azure Linux Virtual Machine
 resource "azurerm_linux_virtual_machine" "mylinuxvm" {
   name = "mylinuxvm-1"
@@ -59,11 +30,11 @@ data "external" "azure_nsg" {
   program = ["bash", "./get_nsg.sh"]
 
   query = {
-    ARM_CLIENT_ID       = var.ARM_CLIENT_ID
-    ARM_CLIENT_SECRET   = var.ARM_CLIENT_SECRET
-    ARM_TENANT_ID       = var.ARM_TENANT_ID
-    ARM_SUBSCRIPTION_ID = var.ARM_SUBSCRIPTION_ID
-    RESOURCE_GROUP      = var.RESOURCE_GROUP  # Optional: Pass a resource group filter
+    ARM_CLIENT_ID       = TF_ARM_CLIENT_ID
+    ARM_CLIENT_SECRET   = TF_ARM_CLIENT_SECRET
+    ARM_TENANT_ID       = TF_ARM_TENANT_ID
+    ARM_SUBSCRIPTION_ID = TF_ARM_SUBSCRIPTION_ID
+    RESOURCE_GROUP      = azurerm_resource_group.myrg.name  # Optional: Pass a resource group filter
   }
 }
 
