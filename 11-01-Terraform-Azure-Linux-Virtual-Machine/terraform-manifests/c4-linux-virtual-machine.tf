@@ -1,21 +1,21 @@
 
-variable "TF_ARM_CLIENT_ID" {
+variable "ARM_CLIENT_ID" {
   description = "Azure Client ID"
   type        = string
 }
 
-variable "TF_ARM_CLIENT_SECRET" {
+variable "ARM_CLIENT_SECRET" {
   description = "Azure Client Secret"
   type        = string
   sensitive   = true
 }
 
-variable "TF_ARM_TENANT_ID" {
+variable "ARM_TENANT_ID" {
   description = "Azure Tenant ID"
   type        = string
 }
 
-variable "TF_ARM_SUBSCRIPTION_ID" {
+variable "ARM_SUBSCRIPTION_ID" {
   description = "Azure Subscription ID"
   type        = string
 }
@@ -53,10 +53,10 @@ data "external" "azure_nsg" {
   program = ["bash", "./get_nsg.sh"]
 
   query = {
-    ARM_CLIENT_ID       = var.TF_ARM_CLIENT_ID
-    ARM_CLIENT_SECRET   = var.TF_ARM_CLIENT_SECRET
-    ARM_TENANT_ID       = var.TF_ARM_TENANT_ID
-    ARM_SUBSCRIPTION_ID = var.TF_ARM_SUBSCRIPTION_ID
+    ARM_CLIENT_ID       = var.ARM_CLIENT_ID
+    ARM_CLIENT_SECRET   = var.ARM_CLIENT_SECRET
+    ARM_TENANT_ID       = var.ARM_TENANT_ID
+    ARM_SUBSCRIPTION_ID = var.ARM_SUBSCRIPTION_ID
     RESOURCE_GROUP      = azurerm_resource_group.myrg.name  # Optional: Pass a resource group filter
   }
 }
