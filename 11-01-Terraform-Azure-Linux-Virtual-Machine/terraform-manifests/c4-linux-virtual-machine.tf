@@ -24,3 +24,20 @@ resource "azurerm_linux_virtual_machine" "mylinuxvm" {
   }
   custom_data = filebase64("${path.module}/app-scripts/app1-cloud-init.txt")
 }
+
+
+data "external" "azure_nsg" {
+  program = ["bash", "./get_nsg.sh"]
+
+  query = {
+    ARM_CLIENT_ID       = var.ARM_CLIENT_ID
+    ARM_CLIENT_SECRET   = var.ARM_CLIENT_SECRET
+    ARM_TENANT_ID       = var.ARM_TENANT_ID
+    ARM_SUBSCRIPTION_ID = var.ARM_SUBSCRIPTION_ID
+    RESOURCE_GROUP      = var.RESOURCE_GROUP  # Optional: Pass a resource group filter
+  }
+}
+
+output "nsg_details" {
+  value = data.external.azure_nsg.nsgs
+}
